@@ -93,8 +93,9 @@ A couple of things to note:
   - To retrieve the data that made up of a reddit page, use the following command:
   
     ```
-    curl -s https://time.com/wp-json/wp/v2/posts/?per_page=10&context=embed | json_pp
+    curl -H "user-agent: ${SOME_RANDOM_USER_AGENT_STRING}" -s "https://time.com/wp-json/wp/v2/posts/?per_page=10&context=embed" | json_pp
     ```
+  - The -H is to hide from the destination website you are using curl, some websites don't like it.  You can find a list of user-agent strings at https://deviceatlas.com/blog/list-of-user-agent-strings
 
   - A running version of the script can be found at
     https://learn.operatoroverload.com/~jmadar/1280/q3.sh
@@ -131,18 +132,18 @@ term as part of the URL as follows https://wwww.bing.com/search?q=${SEARCH_TERM}
 You can prove this by issuing the following curl command on the terminal:
 
 ```shell
-$ curl https://wwww.bing.com/search?q=dog
+$ curl https://search.brave.com/search?q=dog
 ```
 
 Create a script q5.sh that behaves like
 http://learn.operatoroverload.com/~jmadar/1280/q5.sh, where when provided a
 parameter, it will perform a google search and return the result.
 
-NOTE: since HTML is returned from google, you will need to set the content-type
+NOTE: since HTML is returned from brave.com, you will need to set the content-type
 to be ‘text/html’ in your script.  Otherwise the browser won’t display the
 search result properly.
 
-So why do this?  When you do a search on google, google will keep track of your
+So why do this?  When you do a search on brave.com, it will keep track of your
 search history, preferences, etc. by keeping track of your IP, browser login, etc.
 What we are doing here is have your web server do the search on behalf of you.
 This way google doesn’t know who is actually doing the search as all searches will
